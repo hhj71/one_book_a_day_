@@ -10,9 +10,8 @@ import BoardList from "./components/board/BoardList";
 import BoardDetail from "./components/board/BoardDetail";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import BookDetail from "./components/book/BookDetail";
-// Router => DispatcherServlet
-// Routes => Controller Route = method
-// ====== URL에 따라 화면을 찾는 역할
+import Login from "./components/member/Login";
+
 function App() {
     const queryClient = new QueryClient();
   return (
@@ -25,7 +24,8 @@ function App() {
               <Route path={"/Book/list"} element={<BookList/>}/>
               <Route path={"/Book/detail/:bno"} element={<BookDetail/>}/>
               <Route path={"/Board/list"} element={<BoardList/>}/>
-              <Route path={"/Board/detail"} element={<BoardDetail/>}/>
+              <Route path={"/Board/detail/:no"} element={<BoardDetail/>}/>
+              <Route path={"/Member/login"} element={<Login/>}/>
           </Routes>
             </QueryClientProvider>
           <Footer/>

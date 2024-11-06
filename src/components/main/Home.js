@@ -6,27 +6,32 @@ function Home(){
     const [mainData, setMainData] = useState([]);
     const [oneData, setOneData] = useState([]);
     const [rList, setRList] = useState([]);
-    useEffect(()=>{
+    const [nList, setNList] = useState([]);
+    useEffect(()=> {
         axios.get('http://localhost/book/main_list')
             .then(res => {
-                console.log(res)
-                let arr=[]
+                let arr = []
                 arr.push(res.data.hList[0])
                 arr.push(res.data.hList[1])
                 arr.push(res.data.hList[2])
                 arr.push(res.data.hList[3])
                 setOneData(arr)
                 setRList(res.data.rList)
+                setNList(res.data.nList)
+
             }).catch(err => console.log(err))
     },[mainData])
+    console.log(nList)
     let hanlist=oneData.map((HanKang) =>
         <div className="col-lg-3 col-md-6 col-sm-6">
             <div className="single-popular-items mb-50 text-center wow fadeInUp" data-wow-duration="1s"
                  data-wow-delay=".1s">
                 <div className="popular-img">
+                    <Link to={'/book/detail/'+HanKang.bno}>
                     <img src={HanKang.cover} alt=""/>
+                    </Link>
                     <div className="img-cap">
-                        <span>{HanKang.btitle}</span>
+                        <span>{HanKang.btitle}</span>y
                     </div>
                 </div>
             </div>
@@ -86,38 +91,65 @@ function Home(){
                 </div>
             </div>
                 <div className="new-arrival">
-                    <div className="container">
 
-                        <div className="row justify-content-center">
-                            <div className="col-xl-7 col-lg-8 col-md-10">
-                                <div className="section-tittle mb-60 text-center wow fadeInUp" data-wow-duration="2s" data-wow-delay=".2s">
-                                    <h2 style={{"fontFamily":"Noto Sans KR, serif"}}>오늘의 추천 책</h2>
+                    <div className="row">
+                        <div className="col-xl-1"></div>
+                        <div className="col-xl-7">
+                            <div className="row justify-content-center">
+                                <div className="col-xl-7 col-lg-8 col-md-10">
+                                    <div className="section-tittle mb-60 text-center wow fadeInUp"
+                                         data-wow-duration="2s" data-wow-delay=".2s">
+                                        <h2 style={{"fontFamily": "Noto Sans KR, serif"}}>오늘의 추천 책</h2>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="row">
-                            {
-                                rList && rList.map((vo)=>
-                            <div className="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                                <div className="single-new-arrival mb-50 text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
-                                    <div className="popular-img">
-                                        <img src={vo.cover} alt=""/>
-                                            <div className="favorit-items">
-                                                <img src="/img/gallery/favorit-card.png" alt=""/>
+                            <div className="row">
+                                {
+                                    rList && rList.map((vo) =>
+                                        <div className="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                                            <div className="single-new-arrival mb-50 text-center wow fadeInUp"
+                                                 data-wow-duration="1s" data-wow-delay=".1s">
+                                                <div className="popular-img">
+                                                    <img src={vo.cover} alt=""/>
+                                                </div>
+                                                <div className="popular-caption">
+                                                    <h3><Link to={'/book/detail/' + vo.bno}>{vo.btitle}</Link></h3>
+                                                    <span>{vo.price.toLocaleString()}원</span>
+                                                </div>
                                             </div>
-                                    </div>
-                                    <div className="popular-caption">
-                                        <h3><Link to={"product_details.html"}>{vo.btitle}</Link></h3>
-                                        <span>{vo.price.toLocaleString()}원</span>
-                                    </div>
+                                        </div>
+                                    )}
+                            </div>
+                        </div>
+                        <div className="col-xl-3">
+                            <div className="row justify-content-center">
+                                <div className="section-tittle mb-60 text-center wow fadeInUp"
+                                     data-wow-duration="2s" data-wow-delay=".2s">
+                                    <h2 style={{"fontFamily": "Noto Sans KR, serif"}}>최신 도서 뉴스</h2>
+                                </div>
+                                <div className="row">
+                                    {nList && nList.map((news) =>
+                                        <div className="media post_item">
+                                            <div className="media-body2">
+                                                <Link target={"_blank"} to={news.link}>
+                                                    <h3 dangerouslySetInnerHTML={{__html: news.title}}></h3>
+                                                </Link>
+                                                <h4 dangerouslySetInnerHTML={{__html: news.desc}}></h4>
+                                            </div>
+                                        </div>
+                                    )
+                                    }
+
                                 </div>
                             </div>
-                                )}
                         </div>
+                        <div className="col-xl-1"></div>
+
                     </div>
                 </div>
- </main>
+        </main>
     )
 
 }
+
 export default Home

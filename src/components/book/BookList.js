@@ -6,9 +6,11 @@ import apiClient from "../../http-commons"
 
 function BookList() {
     const [curpage, setCurpage] = useState(1)
+
     const [selectedGenre, setSelectedGenre] = useState(null)
     const [searchTitle, setSearchTitle] = useState("")
     const [searchTriggered, setSearchTriggered] = useState(false)
+    const [inputDisabled, setInputDisabled] = useState(false)
     const {isLoading,isError,error,data}=useQuery(["book_all_list", curpage, selectedGenre, searchTriggered],
         // 서버 연결
         async ()=>{
@@ -24,24 +26,29 @@ function BookList() {
             return await apiClient.get(`/book/AllList/${page}?${params.toString()}`)
         },
         {
-            enabled: searchTriggered || curpage === 1
+            enabled: true,
+            keepPreviousData: true,
+            refetchOnWindowFocus: false,
+            staleTime: 5000
         }
     )
-
+    console.log(data)
     if(isLoading)
         return <h1 className={"preloader"}>하루 한 권</h1>
     if(isError)
         return <h1 className={"text-center"}>{error.message}</h1>
 
-    if (!data || !data.data.aList || data.data.aList.length === 0) {
+    /*if (!data || !data.data.aList || data.data.aList.length === 0) {
         return <h1 className={"text-center"}>도서 목록이 없습니다.</h1>
-    }
+    }*/
     const reSearch = (e) =>{
         handleShowAll()
+        setInputDisabled(false)
     }
     const handleSearch = (e) => {
         setCurpage(1)
         setSearchTriggered(true)
+        setInputDisabled(true)
     }
     const handleShowAll = () => {
         setCurpage(1)
@@ -57,12 +64,17 @@ function BookList() {
     }
     const pageChange=(page)=>{
         setCurpage(page)
+        console.log(curpage)
     }
     const prev=()=>{
-        setCurpage(data.data.startPage-1)
+        if (data.data.startPage > 1) {
+            setCurpage(data.data.startPage - 1);
+        }
     }
     const next=()=>{
-        setCurpage(data.data.endPage+1)
+        if (data.data.endPage < data.data.totalpage) {
+            setCurpage(data.data.endPage + 1);
+        }
     }
     let pageArr=[]
     for (let i = data.data.startPage; i <= data.data.endPage; i++) {
@@ -84,26 +96,44 @@ function BookList() {
     return (
         <Fragment>
             <main>
+                <div className="page-notification page-notification2">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-12">
+                                <nav aria-label="breadcrumb">
+                                    <ol className="breadcrumb justify-content-center">
+                                        <li className="breadcrumb-item"><h2>하루&nbsp;한&nbsp;권&nbsp;도서&nbsp;목록</h2></li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div className="category-area">
                     <div className="container">
                         <div className="row">
                             <div className="col-xl-7 col-lg-8 col-md-10">
                                 <div className="section-tittle mb-50">
-                                    <h2>도서 목록</h2>
-                                    <p>총 {data.data.count}권</p>
+                                    <p style={{"marginTop":"30px", "paddingLeft":"20px", "marginBottom":"0px"}}>총 {data.data.count}권</p>
                                 </div>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-xl-3 col-lg-3 col-md-4 ">
-                                <aside className="single_sidebar_widget search_widget" style={{"paddingTop":"30px","paddingBottom":"30px","paddingLeft":"0px","paddingRight":"0px"}}>
+                                <aside className="single_sidebar_widget search_widget" style={{
+                                    "paddingTop": "30px",
+                                    "paddingBottom": "30px",
+                                    "paddingLeft": "0px",
+                                    "paddingRight": "0px"
+                                }}>
                                     <form onSubmit={(e) => e.preventDefault()}>
                                         <div className="form-group">
                                             <div className="input-group mb-3">
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    placeholder="도서명을 입력해주세요"
+                                                    placeholder="도서명 입력"
+                                                    disabled={inputDisabled}
                                                     value={searchTitle}
                                                     onFocus={(e) => e.target.placeholder = ''}
                                                     onBlur={(e) => e.target.placeholder = '도서명을 입력해주세요'}
@@ -113,7 +143,7 @@ function BookList() {
                                                 <div className="input-group-append">
                                                     <button className="btns" type="button"
                                                             style={{
-                                                                  "border": "1px solid blueviolet"
+                                                                "border": "1px solid blueviolet"
                                                             }}>
                                                         <i onClick={reSearch} className="ti-trash"></i>
                                                     </button>
@@ -130,7 +160,7 @@ function BookList() {
                                 </aside>
                                 <aside className="single_sidebar_widget post_category_widget">
                                     <h2 className="widget_title" style={{
-                                        "color": "#2d2d2d",
+                                        "color": "navy",
                                         "fontFamily": "Noto Sans KR, serif",
                                         "marginBottom": "20px"
                                     }}>카테고리</h2>
@@ -149,7 +179,7 @@ function BookList() {
                                                         setSelectedGenre(bgenre[0])
                                                         setSearchTitle("")
                                                         setCurpage(1)
-                                                }}
+                                                    }}
                                                 >
                                                     {bgenre[0]}&nbsp;({bgenre[1]})</p>
                                             </li>
@@ -170,10 +200,10 @@ function BookList() {
                                                         </div>
                                                     </div>
                                                     <div className="popular-caption">
-                                                        <h3><Link style = {{"fontFamily": "Noto Sans KR, serif"}}
-                                                                  to={'/book/detail/'+book.bno}>{book.btitle}</Link>
+                                                        <h3><Link style={{"fontFamily": "Noto Sans KR, serif"}}
+                                                                  to={'/book/detail/' + book.bno}>{book.btitle}</Link>
                                                         </h3>
-                                                        <h4 style = {{"fontFamily": "Noto Sans KR, serif"}}>{book.writer}</h4>
+                                                        <h4 style={{"fontFamily": "Noto Sans KR, serif"}}>{book.writer}</h4>
                                                         <span>{book.price.toLocaleString()}원</span>
                                                     </div>
                                                 </div>

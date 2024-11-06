@@ -1,9 +1,24 @@
 import {Fragment,useState,useEffect} from "react";
 import axios from "axios";
-import {Link} from "react-router-dom";
-import BoardList from "./BoardList";
+import {Link, useParams} from "react-router-dom";
+import apiClient from "../../http-commons"
+import {useQuery} from "react-query";
 
 function BoardDetail() {
+    const {no} = useParams()
+    const {isLoading,isError,error,data}=useQuery(['board_detail',no],
+        async ()=>{
+            return await apiClient.get(`/board/detail/${no}`)
+        }
+    )
+    useEffect(()=>{
+        // boardDetail()
+    }, [no])
+    if(isLoading)
+        return <h1 className={"text-center"}>서버에서 데이터 전송 지연...</h1>
+    if(isError)
+        return <h1 className={"text-center"}>{error}</h1>
+
     return (
         <Fragment>
             <main>
@@ -13,8 +28,7 @@ function BoardDetail() {
                             <div className="col-lg-12">
                                 <nav aria-label="breadcrumb">
                                     <ol className="breadcrumb justify-content-center">
-                                        <li className="breadcrumb-item"><a href="index.html">Home</a></li>
-                                        <li className="breadcrumb-item"><a href="#"> Details</a></li>
+                                        <li className="breadcrumb-item"><h2>하루&nbsp;한&nbsp;권&nbsp;독서&nbsp;기록</h2></li>
                                     </ol>
                                 </nav>
                             </div>
@@ -22,93 +36,48 @@ function BoardDetail() {
                     </div>
                 </div>
                 <section className="blog_area single-post-area section-padding">
-                    <div className="container">
+                <div className="container">
                         <div className="row">
                             <div className="col-lg-1 posts-list">
                             </div>
                             <div className="col-lg-10 posts-list">
                                 <div className="single-post">
                                     <div className="blog_details">
-                                        <h2 style="color: #2d2d2d;">Second divided from form fish beast made every of
-                                            seas
-                                            all gathered us saying he our
+                                        <h2 style={{"color": "#2d2d2d"}}>
+                                            {data.data.subject}
                                         </h2>
                                         <ul className="blog-info-link mt-3 mb-4">
-                                            <li><a href="#"><i className="fa fa-user"></i> Travel, Lifestyle</a></li>
-                                            <li><a href="#"><i className="fa fa-comments"></i> 03 Comments</a></li>
+                                            <li><i className="fa fa-user">&nbsp;{data.data.name}</i></li>
+                                            <li><i className="fa fa-eye">&nbsp;{data.data.hit}</i></li>
                                         </ul>
                                         <div className="blog-author">
                                             <div className="media align-items-center">
-                                                <img src="assets/img/blog/author.png" alt=""/>
+                                                <img src={data.data.bcover} alt=""/>
                                                 <div className="media-body">
-                                                    <a href="#">
-                                                        <h4>Harvard milan</h4>
-                                                    </a>
-                                                    <p>Second divided from form fish beast made. Every of seas all
-                                                        gathered use saying you're, he
-                                                        our dominion twon Second divided from</p>
+                                                    <Link to={'/book/detail/' + data.data.bno}>
+                                                        <h4>{data.data.btitle}</h4>
+                                                    </Link>
+                                                    <p>{data.data.bwriter}&nbsp;저</p>
                                                 </div>
                                             </div>
                                         </div>
                                         <p className="excert">
-                                            MCSE boot camps have its supporters and its detractors. Some people do not
-                                            understand why you
-                                            should have to spend money on boot camp when you can get the MCSE study
-                                            materials yourself at a
-                                            fraction of the camp price. However, who has the willpower
+                                            {data.data.content}
                                         </p>
-                                        <p>
-                                            MCSE boot camps have its supporters and its detractors. Some people do not
-                                            understand why you
-                                            should have to spend money on boot camp when you can get the MCSE study
-                                            materials yourself at a
-                                            fraction of the camp price. However, who has the willpower to actually sit
-                                            through a
-                                            self-imposed MCSE training. who has the willpower to actually
-                                        </p>
-                                        <div className="quote-wrapper">
-                                            <div className="quotes">
-                                                MCSE boot camps have its supporters and its detractors. Some people do
-                                                not understand why you
-                                                should have to spend money on boot camp when you can get the MCSE study
-                                                materials yourself at
-                                                a fraction of the camp price. However, who has the willpower to actually
-                                                sit through a
-                                                self-imposed MCSE training.
-                                            </div>
+                                        <div className={"boardtag"}>
+                                       <p> #{data.data.tag}</p>
                                         </div>
-                                        <p>
-                                            MCSE boot camps have its supporters and its detractors. Some people do not
-                                            understand why you
-                                            should have to spend money on boot camp when you can get the MCSE study
-                                            materials yourself at a
-                                            fraction of the camp price. However, who has the willpower
-                                        </p>
-                                        <p>
-                                            MCSE boot camps have its supporters and its detractors. Some people do not
-                                            understand why you
-                                            should have to spend money on boot camp when you can get the MCSE study
-                                            materials yourself at a
-                                            fraction of the camp price. However, who has the willpower to actually sit
-                                            through a
-                                            self-imposed MCSE training. who has the willpower to actually
-                                        </p>
                                     </div>
                                 </div>
                                 <div className="navigation-top">
                                     <div className="d-sm-flex justify-content-between text-center">
                                         <p className="like-info"><span className="align-middle"><i
-                                            className="fa fa-heart"></i></span> Lily and 4
-                                            people like this</p>
+                                            className="fa fa-heart"></i></span> </p>
                                         <div className="col-sm-4 text-center my-2 my-sm-0">
+                                            <span style={{"color": "#140C40"}}>수정 &nbsp;</span>
+                                            <span style={{"color": "#140C40"}}>삭제 &nbsp;</span>
+                                            <Link to={"/board/list"}><span style={{"color": "#140C40"}}>목록</span></Link>
                                         </div>
-                                        <ul className="social-icons">
-                                            <li><a href="https://www.facebook.com/sai4ull"><i
-                                                className="fab fa-facebook-f"></i></a></li>
-                                            <li><a href="#"><i className="fab fa-twitter"></i></a></li>
-                                            <li><a href="#"><i className="fab fa-dribbble"></i></a></li>
-                                            <li><a href="#"><i className="fab fa-behance"></i></a></li>
-                                        </ul>
                                     </div>
 
                                 </div>
