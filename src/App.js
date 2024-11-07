@@ -11,6 +11,8 @@ import BoardDetail from "./components/board/BoardDetail";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import BookDetail from "./components/book/BookDetail";
 import Login from "./components/member/Login";
+import SignUp from "./components/member/SignUp";
+import BoardInsert from "./components/board/BoardInsert";
 
 function App() {
     const queryClient = new QueryClient();
@@ -24,8 +26,10 @@ function App() {
               <Route path={"/Book/list"} element={<BookList/>}/>
               <Route path={"/Book/detail/:bno"} element={<BookDetail/>}/>
               <Route path={"/Board/list"} element={<BoardList/>}/>
+              <Route path={"/Board/insert"} element={<BoardInsert/>}/>
               <Route path={"/Board/detail/:no"} element={<BoardDetail/>}/>
               <Route path={"/Member/login"} element={<Login/>}/>
+              <Route path={"/Member/signup"} element={<SignUp/>}/>
           </Routes>
             </QueryClientProvider>
           <Footer/>

@@ -1,6 +1,7 @@
 import { Fragment, useState, useRef } from "react";
 import { useMutation } from "react-query";
 import apiClient from "../../http-commons";
+import {Link} from "react-router-dom";
 
 function Login(){
     const [id, setId] = useState('')
@@ -61,9 +62,23 @@ function Login(){
 
     return(
         <Fragment>
+            <div className="page-notification page-notification2">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <nav aria-label="breadcrumb">
+                                <ol className="breadcrumb justify-content-center">
+                                    <li className="breadcrumb-item"><h2>로그인</h2>
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className="row">
-                <div className="col-lg-8 col-md-8">
-                    <h3 className="mb-30">로그인</h3>
+                <div className="col-1g-4 col-md-4"></div>
+                <div className="col-lg-4 col-md-4" style={{"padding":"10px", "border":"2px solid #6c757d", "margin":"40px", "borderRadius":"5px"}} >
                     <form action="#">
                         <div className="mt-10">
                             <input type="text"
@@ -91,20 +106,25 @@ function Login(){
                                 className="single-input"
                             />
                         </div>
-                        <div className="mt-10">
+                        <div className="mt-10" style={{"textAlign": "center", "marginBottom": "20px", "marginTop":"10px"}} >
                             <button
                                 type="button"
                                 onClick={memberLogin} // 로그인 버튼 클릭 시 로그인 요청
-                                className="button button-contactForm btn_1 boxed-btn"
-                            >
-                                로그인
+                                className="genric-btn default arrow"
+                            > 로그인
                             </button>
                         </div>
                     </form>
+                    <div className="text-center">
+                        <div className="row">
+                        <p style={{"marginLeft":"20px"}}> 아직 회원이 아니신가요?</p><Link style={{"color":"black", "marginLeft":"15px", "fontSize":"14px"}} to={"/member/signup"}>회원가입</Link>
+                        </div>
+                    </div>
                     {isLoading && <p>로그인 중...</p>}
                     {isError && <p>{error.message}</p>}
                     {login && <p>로그인 성공! {window.sessionStorage.getItem('name')}님, 환영합니다.</p>}
                 </div>
+                <div className="col-1g-4 col-md-4"></div>
             </div>
         </Fragment>
     )

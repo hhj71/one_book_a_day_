@@ -112,7 +112,7 @@ function BoardList() {
                             <div className="col-lg-4">
                                 <div className="blog_right_sidebar">
                                     <div className="button-group-area mt-40">
-                                        <Link to={"/"} className="genric-btn default circle arrow" style={{"fontSize": "20px", "marginBottom": "20px"}}>
+                                        <Link to={"/board/insert"} className="genric-btn default circle arrow" style={{"fontSize": "20px", "marginBottom": "20px"}}>
                                             <i class="fa fa-sticky-note"></i>&nbsp;기록하기</Link>
                                     </div>
                                     <aside className="single_sidebar_widget popular_post_widget">
