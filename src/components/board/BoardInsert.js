@@ -32,14 +32,14 @@ function BoardInsert() {
         try {
             const response = await apiClient.get(`/board/booksearch`, {
                 params: { btitle: searchQuery }
-            });
-            setBList(response.data);
+            })
+            setBList(response.data)
         } catch (error) {
-            console.error("책 검색 실패:", error);
+            console.error("책 검색 실패:", error)
         }
     }
     const {mutate:insert}=useMutation(
-        async ()=>{
+        async ()=> {
             return await apiClient.post(`/board/insert`,{
                 name:userName,
                 subject:subject,
@@ -68,7 +68,7 @@ function BoardInsert() {
         }
     )
     const boardInsert=(e)=>{
-        e.preventDefault();
+        e.preventDefault()
         if(userName.trim()==="")
         {
             nameRef.current.focus()
@@ -118,18 +118,22 @@ function BoardInsert() {
 
                                     <div className="col-7" style={{"paddingLeft":"0px"}}>
                                     <input className="form-control" name="book" id="book" type="book"
-                                           placeholder="책 제목을 입력하세요" value={searchQuery}
+                                           placeholder="책 제목을 입력해주세요" value={searchQuery}
                                            onChange={(e) => setSearchQuery(e.target.value)}/>
                                     </div>
                                     <div className="col-1">
-                                    <button className="button boxed-btn" onClick={fetchBooks} style={{"height":"48px", "padding":"10px"}}>검색</button>
+                                    <button className="button boxed-btn" type="button" onClick={(e)=>{ e.preventDefault(); fetchBooks(searchQuery)}} style={{"height":"48px", "padding":"10px"}}>검색</button>
                                     </div>
                                     <div className="col-4"></div>
                             </div>
                                 <div className="form-group">
                                     <div className="col-7">
                                         <div>
-                                        <select className="nice-select" style={{"marginBottom":"20px", "minWidth":"300px", "marginLeft":"-15px"}}>
+                                        <select className="nice-select" style={{"marginBottom":"20px", "minWidth":"300px", "marginLeft":"-15px"}}  value={selectedBook.bno}
+                                                onChange={(e) => {
+                                                const selectedBookData = bList.find(book => book.bno === parseInt(e.target.value));
+                                                setSelectedBook(selectedBookData)
+                                        }}>
                                             {bList.map(book => (
                                                 <option key={book.bno} value={book.bno}>
                                                     {book.btitle}
