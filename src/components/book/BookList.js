@@ -114,7 +114,16 @@ function BookList() {
                         <div className="row">
                             <div className="col-xl-7 col-lg-8 col-md-10">
                                 <div className="section-tittle mb-50">
-                                    <p style={{"marginTop":"30px", "paddingLeft":"20px", "marginBottom":"0px"}}>총 {data.data.count}권</p>
+                                    <p style={{
+                                        "marginTop": "30px",
+                                        "paddingLeft": "20px",
+                                        "marginBottom": "0px"
+                                    }}>총 {data.data.count}권</p>
+                                    <p style={{
+                                        "marginTop": "30px",
+                                        "marginBottom": "0px",
+                                        "textAlign":"right"
+                                    }}> 책을 읽을 장소를 찾고 있다면? </p>
                                 </div>
                             </div>
                         </div>

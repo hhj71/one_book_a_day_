@@ -37,8 +37,7 @@ function Header(){
                                             <ul id="navigation">
                                                 <li><Link to={"/"}>홈</Link></li>
                                                 <li><Link to={"/book/list"}>도서 목록</Link></li>
-                                                <li><Link to={"/board/list"}>독서 기록장</Link>
-                                                </li>
+                                                <li><Link to={"/board/list"}>독서 기록장</Link></li>
                                             </ul>
                                         </nav>
                                     </div>
