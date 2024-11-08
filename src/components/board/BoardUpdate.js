@@ -151,8 +151,8 @@ function BoardUpdate() {
                                     className="button boxed-btn"
                                     type="button"
                                     onClick={(e) => {
-                                        e.preventDefault();
-                                        fetchBooks(btitle); // 검색 버튼 클릭 시 책 검색
+                                        e.preventDefault()
+                                        fetchBooks(btitle)
                                     }}
                                     style={{ height: "48px", padding: "10px" }}
                                 >
@@ -188,6 +188,7 @@ function BoardUpdate() {
                                 placeholder="기록을 작성해주세요"
                                 value={content}
                                 onChange={(e) => setContent(e.target.value)}
+                                style={{"resize": "none", "overflowY": "auto"}}
                             ></textarea>
                         </div>
 
@@ -202,7 +203,7 @@ function BoardUpdate() {
                                         checked={tag === "기쁨"}
                                         onChange={(e) => setTag(e.target.value)}
                                     />
-                                    😊 기쁨
+                                    😊
                                 </label>
                                 <label>
                                     <input
@@ -212,7 +213,7 @@ function BoardUpdate() {
                                         checked={tag === "보통"}
                                         onChange={(e) => setTag(e.target.value)}
                                     />
-                                    😐 보통
+                                    😐
                                 </label>
                                 <label>
                                     <input
@@ -222,7 +223,7 @@ function BoardUpdate() {
                                         checked={tag === "슬픔"}
                                         onChange={(e) => setTag(e.target.value)}
                                     />
-                                    😭 슬픔
+                                    😭
                                 </label>
                                 <label>
                                     <input
@@ -232,14 +233,19 @@ function BoardUpdate() {
                                         checked={tag === "화남"}
                                         onChange={(e) => setTag(e.target.value)}
                                     />
-                                    😡 화남
+                                    😡
                                 </label>
                             </div>
                         </div>
 
                         <div className="form-group">
-                            <button type="submit" className="btn btn-primary">
-                                수정하기
+                            <button type="submit" className="button boxed-btn"
+                                    style={{"textAlign": "center", "marginLeft": "490px", "display":"inline"}}>
+                                수정
+                            </button>
+                            <button type="button" className="button boxed-btn"
+                                    style={{"textAlign": "center", "marginLeft": "20px", "display": "inline"}}
+                                    onClick={() => nav(-1)}>취소
                             </button>
                         </div>
                     </form>

@@ -27,7 +27,6 @@ function BoardDelete() {
         }
     );
 
-    // useRef를 사용하여 confirm 창이 한번만 실행되도록 방지
     const confirmShown = useRef(false)
 
     useEffect(() => {

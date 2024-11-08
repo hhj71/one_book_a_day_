@@ -102,8 +102,8 @@ function BoardInsert() {
                 </div>
             </div>
             <div className="row">
-                <div className="col-lg-1"></div>
-                <div className="col-lg-10" style={{"paddingLeft":"20px", "paddingRight":"20px"}}>
+                <div className="col-lg-2"></div>
+                <div className="col-lg-8" style={{"paddingLeft":"20px", "paddingRight":"20px"}}>
                     <div className="comment-form">
                         <h2>오늘의 기록</h2>
                         <form className="form-contact comment_form" action="#" id="commentForm">
@@ -146,7 +146,7 @@ function BoardInsert() {
                                 </div>
                             <div className=" form-group">
                                             <textarea className=" form-control w-100" name=" content" id="content" cols="30" rows="9"
-                                placeholder="기록을 작성해 주세요" style={{"resize": "none", "overflowY": "scroll"}} onChange={(e) => setContent(e.target.value)}>
+                                placeholder="기록을 작성해 주세요" style={{"resize": "none", "overflowY": "auto"}} onChange={(e) => setContent(e.target.value)}>
                             </textarea>
                             </div>
 
@@ -162,17 +162,21 @@ function BoardInsert() {
                                 </div>
                             </div>
 
-                                <div className="form-group">
-                                <button type="button" className="button boxed-btn" onClick={boardInsert}>기록 작성
+                            <div className="form-group">
+                                <button type="button" className="button boxed-btn"
+                                        style={{"textAlign": "center", "marginLeft": "490px", "display":"inline"}} onClick={boardInsert}>기록
+                                    작성
                                 </button>
+                                <button type="button" className="button boxed-btn"
+                                        style={{"textAlign": "center", "marginLeft": "20px", "display":"inline"}} onClick={()=>nav(-1)}>취소</button>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div className="col-lg-1"></div>
+                <div className="col-lg-2"></div>
             </div>
         </Fragment>
-)
+    )
 }
 
 export default BoardInsert

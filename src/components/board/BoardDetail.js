@@ -16,9 +16,9 @@ function BoardDetail() {
     const isUserAuthor = userId && data && userId === data.data.id;
 
     if(isLoading)
-        return <h1 className={"text-center"}>서버에서 데이터 전송 지연...</h1>
+        return <div className={"preloader"}> <div className={"preloader-circle"}></div></div>
     if(isError)
-        return <h1 className={"text-center"}>{error}</h1>
+        return <h1 className={"text-center"}>{error.message}</h1>
 
     return(
         <Fragment>
@@ -62,18 +62,17 @@ function BoardDetail() {
                                             </div>
                                         </div>
                                     </div>
-                                    <p className="excert">
+                                    <p className="excert" style={{"overflowY": "auto", "width": "90%","whiteSpace": "normal","maxHeight": "300px", "lineHeight": "1.5" }} >
                                         {data.data.content}
                                     </p>
-                                    <div className={"boardtag"}>
+                                    <div className="boardtag">
                                    <p> #{data.data.tag}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="navigation-top">
                                 <div className="d-sm-flex justify-content-between text-center">
-                                    <p className="like-info"><span className="align-middle"><i
-                                        className="fa fa-heart"></i></span> </p>
+                                    <p className="like-info"><span className="align-middle"></span> </p>
                                     <div className="col-sm-4 text-center my-2 my-sm-0">
                                         {isUserAuthor && (
                                             <>
