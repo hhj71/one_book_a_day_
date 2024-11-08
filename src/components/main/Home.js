@@ -7,6 +7,7 @@ function Home(){
     const [oneData, setOneData] = useState([]);
     const [rList, setRList] = useState([]);
     const [nList, setNList] = useState([]);
+    const isLoggedIn = window.sessionStorage.getItem("id");
     useEffect(()=> {
         axios.get('http://localhost/book/main_list')
             .then(res => {
@@ -67,7 +68,11 @@ function Home(){
                                             <div className="hero__caption">
                                                 <h1 style={{"textAlign":"right", "paddingLeft":"600px"}}> What did you read today?</h1>
                                             </div>
-                                                <Link to={"#"} className="btn" style={{"float":"inline-end", "fontFamily":"Noto Sans KR, serif"}}>기록하기</Link>
+                                            {isLoggedIn && (
+                                                <div>
+                                                <Link to={"/board/insert"} className="btn" style={{"float":"inline-end", "fontFamily":"Noto Sans KR, serif"}}>기록하기</Link>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
