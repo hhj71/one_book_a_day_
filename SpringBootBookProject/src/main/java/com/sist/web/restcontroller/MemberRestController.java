@@ -9,9 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sist.web.dao.MemberDAO;
+import com.sist.web.entity.BookBoardEntity;
 import com.sist.web.entity.BookMemberEntity;
 
 @RestController
@@ -50,5 +53,21 @@ public class MemberRestController {
 		    	 return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
 		     }
 		     return new ResponseEntity<>(map,HttpStatus.OK);
+	   }
+	 @PostMapping("/member/signup")
+	   public ResponseEntity<Map> signup_insert(@RequestBody BookMemberEntity vo)
+	   {
+		   Map map=new HashMap();
+		   try
+		   {
+			   BookMemberEntity _vo=mDao.save(vo);
+			   map.put("vo", _vo);
+			   map.put("msg", "yes");
+			   
+		   }catch(Exception ex)
+		   {
+			   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+		   }
+		   return new ResponseEntity<>(map,HttpStatus.CREATED);
 	   }
 }
