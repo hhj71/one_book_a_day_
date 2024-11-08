@@ -32,14 +32,14 @@ function BoardInsert() {
         try {
             const response = await apiClient.get(`/board/booksearch`, {
                 params: { btitle: searchQuery }
-            });
-            setBList(response.data);
+            })
+            setBList(response.data)
         } catch (error) {
-            console.error("책 검색 실패:", error);
+            console.error("책 검색 실패:", error)
         }
     }
     const {mutate:insert}=useMutation(
-        async ()=>{
+        async ()=> {
             return await apiClient.post(`/board/insert`,{
                 name:userName,
                 subject:subject,
@@ -68,7 +68,7 @@ function BoardInsert() {
         }
     )
     const boardInsert=(e)=>{
-        e.preventDefault();
+        e.preventDefault()
         if(userName.trim()==="")
         {
             nameRef.current.focus()
@@ -102,8 +102,8 @@ function BoardInsert() {
                 </div>
             </div>
             <div className="row">
-                <div className="col-lg-1"></div>
-                <div className="col-lg-10" style={{"paddingLeft":"20px", "paddingRight":"20px"}}>
+                <div className="col-lg-2"></div>
+                <div className="col-lg-8" style={{"paddingLeft":"20px", "paddingRight":"20px"}}>
                     <div className="comment-form">
                         <h2>오늘의 기록</h2>
                         <form className="form-contact comment_form" action="#" id="commentForm">
@@ -118,18 +118,22 @@ function BoardInsert() {
 
                                     <div className="col-7" style={{"paddingLeft":"0px"}}>
                                     <input className="form-control" name="book" id="book" type="book"
-                                           placeholder="책 제목을 입력하세요" value={searchQuery}
+                                           placeholder="책 제목을 입력해주세요" value={searchQuery}
                                            onChange={(e) => setSearchQuery(e.target.value)}/>
                                     </div>
                                     <div className="col-1">
-                                    <button className="button boxed-btn" onClick={fetchBooks} style={{"height":"48px", "padding":"10px"}}>검색</button>
+                                    <button className="button boxed-btn" type="button" onClick={(e)=>{ e.preventDefault(); fetchBooks(searchQuery)}} style={{"height":"48px", "padding":"10px"}}>검색</button>
                                     </div>
                                     <div className="col-4"></div>
                             </div>
                                 <div className="form-group">
                                     <div className="col-7">
                                         <div>
-                                        <select className="nice-select" style={{"marginBottom":"20px", "minWidth":"300px", "marginLeft":"-15px"}}>
+                                        <select className="nice-select" style={{"marginBottom":"20px", "minWidth":"300px", "marginLeft":"-15px"}}  value={selectedBook.bno}
+                                                onChange={(e) => {
+                                                const selectedBookData = bList.find(book => book.bno === parseInt(e.target.value));
+                                                setSelectedBook(selectedBookData)
+                                        }}>
                                             {bList.map(book => (
                                                 <option key={book.bno} value={book.bno}>
                                                     {book.btitle}
@@ -142,7 +146,7 @@ function BoardInsert() {
                                 </div>
                             <div className=" form-group">
                                             <textarea className=" form-control w-100" name=" content" id="content" cols="30" rows="9"
-                                placeholder="기록을 작성해 주세요" style={{"resize": "none", "overflowY": "scroll"}} onChange={(e) => setContent(e.target.value)}>
+                                placeholder="기록을 작성해 주세요" style={{"resize": "none", "overflowY": "auto"}} onChange={(e) => setContent(e.target.value)}>
                             </textarea>
                             </div>
 
@@ -158,17 +162,21 @@ function BoardInsert() {
                                 </div>
                             </div>
 
-                                <div className="form-group">
-                                <button type="button" className="button boxed-btn" onClick={boardInsert}>기록 작성
+                            <div className="form-group">
+                                <button type="button" className="button boxed-btn"
+                                        style={{"textAlign": "center", "marginLeft": "490px", "display":"inline"}} onClick={boardInsert}>기록
+                                    작성
                                 </button>
+                                <button type="button" className="button boxed-btn"
+                                        style={{"textAlign": "center", "marginLeft": "20px", "display":"inline"}} onClick={()=>nav(-1)}>취소</button>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div className="col-lg-1"></div>
+                <div className="col-lg-2"></div>
             </div>
         </Fragment>
-)
+    )
 }
 
 export default BoardInsert

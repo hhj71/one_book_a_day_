@@ -13,6 +13,8 @@ import BookDetail from "./components/book/BookDetail";
 import Login from "./components/member/Login";
 import SignUp from "./components/member/SignUp";
 import BoardInsert from "./components/board/BoardInsert";
+import BoardDelete from "./components/board/BoardDelete";
+import BoardUpdate from "./components/board/BoardUpdate";
 
 function App() {
     const queryClient = new QueryClient();
@@ -28,6 +30,8 @@ function App() {
               <Route path={"/Board/list"} element={<BoardList/>}/>
               <Route path={"/Board/insert"} element={<BoardInsert/>}/>
               <Route path={"/Board/detail/:no"} element={<BoardDetail/>}/>
+              <Route path={"/Board/delete/:no"} element={<BoardDelete/>}/>
+              <Route path={"/Board/update/:no"} element={<BoardUpdate/>}/>
               <Route path={"/Member/login"} element={<Login/>}/>
               <Route path={"/Member/signup"} element={<SignUp/>}/>
           </Routes>
