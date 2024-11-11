@@ -10,13 +10,11 @@ function Footer(){
                                     <div className="single-footer-caption mb-30">
 
                                         <div className="footer-logo mb-35">
-                                            <a href="#"><img src="/img/logo/logo2_footer.png" alt=""/></a>
+                                            <a href="#"><img src="../../img/logo/logo1.png" alt="" style={{"width":"200px", "height":"80px"}}/></a>
                                         </div>
                                         <div className="footer-tittle">
                                             <div className="footer-pera">
-                                                <p>Suspendisse varius enim in eros elementum tristique. Duis cursus, mi
-                                                    quis
-                                                    viverra ornare, eros dolor interdum nulla.</p>
+
                                             </div>
                                         </div>
 
@@ -31,11 +29,11 @@ function Footer(){
                             <div className="col-xl-2 col-lg-2 col-md-4 col-sm-4">
                                 <div className="single-footer-caption mb-50">
                                     <div className="footer-tittle">
-                                        <h4>Quick links</h4>
+                                        <h4></h4>
                                         <ul>
-                                            <li><a href="#">Image Licensin</a></li>
-                                            <li><a href="#">Style Guide</a></li>
-                                            <li><a href="#">Privacy Policy</a></li>
+                                            <li><a href="#"></a></li>
+                                            <li><a href="#"></a></li>
+                                            <li><a href="#"></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -43,23 +41,11 @@ function Footer(){
                             <div className="col-xl-2 col-lg-2 col-md-4 col-sm-4">
                                 <div className="single-footer-caption mb-50">
                                     <div className="footer-tittle">
-                                        <h4>Shop Category</h4>
+                                        <h4></h4>
                                         <ul>
-                                            <li><a href="#">Image Licensin</a></li>
-                                            <li><a href="#">Style Guide</a></li>
-                                            <li><a href="#">Privacy Policy</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-xl-2 col-lg-2 col-md-4 col-sm-4">
-                                <div className="single-footer-caption mb-50">
-                                    <div className="footer-tittle">
-                                        <h4>Pertners</h4>
-                                        <ul>
-                                            <li><a href="#">Image Licensin</a></li>
-                                            <li><a href="#">Style Guide</a></li>
-                                            <li><a href="#">Privacy Policy</a></li>
+                                            <li><a href="#"></a></li>
+                                            <li><a href="#"></a></li>
+                                            <li><a href="#"></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -67,11 +53,11 @@ function Footer(){
                             <div className="col-xl-2 col-lg-3 col-md-4 col-sm-4">
                                 <div className="single-footer-caption mb-50">
                                     <div className="footer-tittle">
-                                        <h4>Get in touch</h4>
+                                        <h4></h4>
                                         <ul>
-                                            <li><a href="#">(89) 982-278 356</a></li>
-                                            <li><a href="#">demo@colorlib.com</a></li>
-                                            <li><a href="#">67/A, Colorlib, Green road, NYC</a></li>
+                                            <li><a href="#">한혜진</a></li>
+                                            <li><a href="#">chhj017@naver.com</a></li>
+                                            <li><a href="#">https://github.com/hhj71</a></li>
                                         </ul>
                                     </div>
                                 </div>
